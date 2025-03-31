@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Koiran tuotteet</title>
+</head>
+<body>
+<h1>Koiran tuotteet</h1>
+
+<!-- Lomake: lisää tai päivitä -->
+<form method="post" th:action="@{/paivita}" th:object="${valittutuote}">
+    <input type="hidden" th:field="*{id}" />
+    <input type="text" th:field="*{nimi}" placeholder="Nimi" required />
+    <input type="text" th:field="*{valmistaja}" placeholder="Valmistaja" required />
+    <input type="number" th:field="*{maaraVarastossa}" placeholder="Määrä" required />
+    <input type="text" th:field="*{tyyppi}" placeholder="Tyyppi" required />
+    <input type="text" th:field="*{vari}" placeholder="Väri" required />
+    <input type="text" th:field="*{koko}" placeholder="Koko" required />
+    <input type="number" step="0.01" th:field="*{hinta}" placeholder="Hinta (€)" required />
+    <button type="submit">Tallenna</button>
+</form>
+
+<!-- Lista tuotteista -->
+<ul>
+    <li th:each="tuote : ${tuotteet}">
+        <span th:text="${tuote.nimi}"></span> -
+        <span th:text="${tuote.valmistaja}"></span> -
+        <span th:text="${tuote.maaraVarastossa}"></span> -
+        <span th:text="${tuote.tyyppi}"></span> -
+        <span th:text="${tuote.vari}"></span> -
+        <span th:text="${tuote.koko}"></span> -
+        <span th:text="${tuote.hinta} + ' €'"></span>
+        <!-- Muokkaa-nappi -->
+        <a th:href="@{'/muokkaa/' + ${tuote.id}}">Muokkaa</a>
+    </li>
+</ul>
+</body>
+</html>
