@@ -30,6 +30,7 @@
         <span th:text="${tuote.size}"></span> -
         <span th:text="${tuote.price} + ' €'"></span>
         <a th:href="@{'/muokkaa/' + ${tuote.id}}">Muokkaa</a>
+        <a th:href="@{'/poista/' + ${tuote.id}}">Poista</a>
     </li>
 </ul>
 

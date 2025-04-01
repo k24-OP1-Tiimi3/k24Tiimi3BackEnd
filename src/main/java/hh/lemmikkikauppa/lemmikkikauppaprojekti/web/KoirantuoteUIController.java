@@ -43,4 +43,11 @@ public class KoirantuoteUIController {
         repository.save(tuote); // sama metodi toimii sekä uudelle että päivitettävälle tuotteelle
         return "redirect:/tuotteet";
     }
+
+    // Poista tuote (GET-lomake)
+    @GetMapping("/poista/{id}")
+    public String poistaTuote(@PathVariable Long id) {
+        repository.deleteById(id); // poistaa tuotteen id:n perusteella
+        return "redirect:/tuotteet"; // ohjaa takaisin tuotteet-sivulle
+    }
 }
