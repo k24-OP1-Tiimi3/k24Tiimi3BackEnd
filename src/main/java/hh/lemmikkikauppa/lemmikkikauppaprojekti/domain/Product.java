@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -20,10 +21,10 @@ public class Product {
     private String size;
     private double price;
 
+    @ManyToOne
     private Manufacturer manufacturer;
 
     // Getterit ja setterit...
-
 
     public Long getId() {
         return this.id;

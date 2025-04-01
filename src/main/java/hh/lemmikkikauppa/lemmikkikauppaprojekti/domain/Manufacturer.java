@@ -2,6 +2,8 @@ package hh.lemmikkikauppa.lemmikkikauppaprojekti.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +14,8 @@ public class Manufacturer {
     private Long manufacturerid;
     private String name;
 
+    @ManyToMany
+    @JsonIgnore
     private List<Product> products;
 
     public Manufacturer() {

@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Koiran tuotteet</title>
 </head>
+
 <body>
-<h1>Koiran tuotteet</h1>
+    <h1>Koiran tuotteet</h1>
 
-<!-- Lomake: lisää tai päivitä -->
-<form method="post" th:action="@{/paivita}" th:object="${valittutuote}">
-    <input type="hidden" th:field="*{id}" />
-    <input type="text" th:field="*{name}" placeholder="Nimi" required />
-    <input type="text" th:field="*{manufacturer}" placeholder="Valmistaja" required />
-    <input type="number" th:field="*{inventory}" placeholder="Määrä" required />
-    <input type="text" th:field="*{type}" placeholder="Tyyppi" required />
-    <input type="text" th:field="*{color}" placeholder="Väri" required />
-    <input type="text" th:field="*{size}" placeholder="Koko" required />
-    <input type="number" step="0.01" th:field="*{price}" placeholder="Hinta (€)" required />
-    <button type="submit">Tallenna</button>
-</form>
+    <!-- Lomake: lisää tai päivitä -->
+    <form method="post" th:action="@{/paivita}" th:object="${valittutuote}">
+        <input type="hidden" th:field="*{id}" />
+        <input type="text" th:field="*{name}" placeholder="Nimi" required />
+        <select th:field="*{manufacturer}">
+            <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.manufacturerid}"
+                th:text="${manufacturer.name}">
+            </option>
+        </select>
+        <input type="number" th:field="*{inventory}" placeholder="Määrä" required />
+        <input type="text" th:field="*{type}" placeholder="Tyyppi" required />
+        <input type="text" th:field="*{color}" placeholder="Väri" required />
+        <input type="text" th:field="*{size}" placeholder="Koko" required />
+        <input type="number" step="0.01" th:field="*{price}" placeholder="Hinta (€)" required />
+        <button type="submit">Tallenna</button>
+    </form>
 
-
-<ul>
-    <li th:each="tuote : ${tuotteet}">
-        <span th:text="${tuote.name}"></span> -
-        <span th:text="${tuote.manufacturer}"></span> -
-        <span th:text="${tuote.inventory}"></span> -
-        <span th:text="${tuote.type}"></span> -
-        <span th:text="${tuote.color}"></span> -
-        <span th:text="${tuote.size}"></span> -
-        <span th:text="${tuote.price} + ' €'"></span>
-        <a th:href="@{'/muokkaa/' + ${tuote.id}}">Muokkaa</a>
-        <a th:href="@{'/poista/' + ${tuote.id}}">Poista</a>
-    </li>
-</ul>
+    <ul>
+        <li th:each="tuote : ${tuotteet}">
+            <span th:text="${tuote.name}"></span> -
+            <span th:text="${tuote.manufacturer.name}"></span> -
+            <span th:text="${tuote.inventory}"></span> -
+            <span th:text="${tuote.type}"></span> -
+            <span th:text="${tuote.color}"></span> -
+            <span th:text="${tuote.size}"></span> -
+            <span th:text="${tuote.price} + ' €'"></span>
+            <a th:href="@{'/muokkaa/' + ${tuote.id}}">Muokkaa</a>
+            <a th:href="@{'/poista/' + ${tuote.id}}">Poista</a>
+        </li>
+    </ul>
 
 </body>
+
 </html>
