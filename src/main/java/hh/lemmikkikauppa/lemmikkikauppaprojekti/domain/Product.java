@@ -13,13 +13,14 @@ public class Product {
     private Long id;
 
     private String name;
-    private String manufacturer;
     private int inventory;
 
     private String type;
     private String color;
     private String size;
     private double price;
+
+    private Manufacturer manufacturer;
 
     // Getterit ja setterit...
 
@@ -38,14 +39,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getManufacturer() {
-        return this.manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
     }
 
     public int getInventory() {
@@ -86,6 +79,20 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", name=" + name + ", inventory=" + inventory + ", type=" + type + ", color="
+                + color + ", size=" + size + ", price=" + price + ", manufacturer=" + manufacturer + "]";
     }
 
 }
