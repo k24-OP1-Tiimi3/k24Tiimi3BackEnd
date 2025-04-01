@@ -1,7 +1,6 @@
-package hh.lemmikkikauppa.lemmikkikauppaprojekti.repository;
+package hh.lemmikkikauppa.lemmikkikauppaprojekti.domain;
 
 import org.springframework.data.repository.CrudRepository;
-import hh.lemmikkikauppa.lemmikkikauppaprojekti.model.KoiranTuote;
 
 public interface KoirantuoteRepository extends CrudRepository<KoiranTuote, Long> {
 }

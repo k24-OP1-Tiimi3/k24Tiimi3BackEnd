@@ -1,4 +1,4 @@
-package hh.lemmikkikauppa.lemmikkikauppaprojekti.model;
+package hh.lemmikkikauppa.lemmikkikauppaprojekti.domain;
 
 import jakarta.persistence.*;
 

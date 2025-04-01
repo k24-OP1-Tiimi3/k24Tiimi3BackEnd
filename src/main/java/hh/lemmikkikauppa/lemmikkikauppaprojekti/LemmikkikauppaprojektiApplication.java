@@ -10,4 +10,6 @@ public class LemmikkikauppaprojektiApplication {
 		SpringApplication.run(LemmikkikauppaprojektiApplication.class, args);
 	}
 
+	
+
 }
