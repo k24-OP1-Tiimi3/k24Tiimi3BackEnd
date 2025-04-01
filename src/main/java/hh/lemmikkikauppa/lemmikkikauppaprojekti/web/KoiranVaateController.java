@@ -10,20 +10,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.KoiranTuote;
-import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.KoirantuoteRepository;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
 
 @Controller
 public class KoiranVaateController {
 
-    private final KoirantuoteRepository koirantuoteRepository;
+    private final ProductRepository koirantuoteRepository;
 
-    public KoiranVaateController(KoirantuoteRepository koirantuoteRepository) {
+    public KoiranVaateController(ProductRepository koirantuoteRepository) {
         this.koirantuoteRepository = koirantuoteRepository;
     }
 
     @GetMapping("/tuotteet")
-    public String showKoiranTuotteet(Model model) {
+    public String getKoiranTuotteet(Model model) {
         model.addAttribute("tuotteet", koirantuoteRepository.findAll());
         return "tuotteet";
     }
+    
 }
