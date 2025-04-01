@@ -1,6 +1,9 @@
 package hh.lemmikkikauppa.lemmikkikauppaprojekti.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Product {
@@ -10,7 +13,7 @@ public class Product {
     private Long id;
 
     private String name;
-    private String manufactorer;
+    private String manufacturer;
     private int inventory;
 
     private String type;
@@ -20,15 +23,15 @@ public class Product {
 
     // Getterit ja setterit...
 
-    // id, name, manufactorer, inventory
+    // id, name, manufacturer, inventory
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public String getname() { return name; }
     public void setname(String name) { this.name = name; }
 
-    public String getmanufactorer() { return manufactorer; }
-    public void setmanufactorer(String manufactorer) { this.manufactorer = manufactorer; }
+    public String getmanufacturer() { return manufacturer; }
+    public void setmanufacturer(String manufacturer) { this.manufacturer = manufacturer; }
 
     public int getinventory() { return inventory; }
     public void setinventory(int inventory) { this.inventory = inventory; }
