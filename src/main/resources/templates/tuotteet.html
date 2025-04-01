@@ -19,7 +19,7 @@
     <button type="submit">Tallenna</button>
 </form>
 
-<!-- Lista tuotteista -->
+
 <ul>
     <li th:each="tuote : ${tuotteet}">
         <span th:text="${tuote.name}"></span> -
@@ -29,9 +29,9 @@
         <span th:text="${tuote.color}"></span> -
         <span th:text="${tuote.size}"></span> -
         <span th:text="${tuote.price} + ' €'"></span>
-        <!-- Muokkaa-nappi -->
         <a th:href="@{'/muokkaa/' + ${tuote.id}}">Muokkaa</a>
     </li>
 </ul>
+
 </body>
 </html>

@@ -23,29 +23,69 @@ public class Product {
 
     // Getterit ja setterit...
 
-    // id, name, manufacturer, inventory
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
-    public String getname() { return name; }
-    public void setname(String name) { this.name = name; }
+    public Long getId() {
+        return this.id;
+    }
 
-    public String getmanufacturer() { return manufacturer; }
-    public void setmanufacturer(String manufacturer) { this.manufacturer = manufacturer; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public int getinventory() { return inventory; }
-    public void setinventory(int inventory) { this.inventory = inventory; }
+    public String getName() {
+        return this.name;
+    }
 
-    // Uudet kentät
-    public String gettype() { return type; }
-    public void settypei(String typei) { this.type = typei; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getcolor() { return color; }
-    public void setcolor(String color) { this.color = color; }
+    public String getManufacturer() {
+        return this.manufacturer;
+    }
 
-    public String getsize() { return size; }
-    public void setsize(String size) { this.size = size; }
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
 
-    public double getprice() { return price; }
-    public void setprice(double price) { this.price = price; }
+    public int getInventory() {
+        return this.inventory;
+    }
+
+    public void setInventory(int inventory) {
+        this.inventory = inventory;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getColor() {
+        return this.color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSize() {
+        return this.size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
 }
