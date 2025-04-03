@@ -5,6 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMin;
+
 
 @Entity
 public class Product {
@@ -13,12 +17,17 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @Min(value = 0, message = "Inventory must be a positive number")
     private int inventory;
 
     private String type;
     private String color;
     private String size;
+
+    @DecimalMin(value = "0.01", inclusive = false, message = "Price must be a positive number")
     private double price;
 
     @ManyToOne

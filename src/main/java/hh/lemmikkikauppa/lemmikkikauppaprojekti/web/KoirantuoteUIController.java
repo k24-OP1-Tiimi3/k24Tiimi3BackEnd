@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class KoirantuoteUIController {
@@ -44,9 +46,15 @@ public class KoirantuoteUIController {
 
     // Lisää tai päivitä tuote (POST-lomake)
     @PostMapping("/paivita")
-    public String paivitaTuote(@ModelAttribute Product tuote) {
-        productRepository.save(tuote); // sama metodi toimii sekä uudelle että päivitettävälle tuotteelle
-        return "redirect:/tuotteet";
+    public String paivitaTuote(@Valid @ModelAttribute("valittutuote") Product tuote, BindingResult bindingResult, Model model) {
+    if (bindingResult.hasErrors()) {
+        model.addAttribute("tuotteet", productRepository.findAll());
+        model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        return "tuotteet";
+    }
+
+    productRepository.save(tuote);
+    return "redirect:/tuotteet";
     }
 
     // Poista tuote (GET-lomake)
