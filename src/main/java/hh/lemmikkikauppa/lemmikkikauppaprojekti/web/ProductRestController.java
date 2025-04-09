@@ -12,6 +12,7 @@ import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductRestController {
 
     @Autowired
@@ -38,4 +39,3 @@ public class ProductRestController {
         return manufacturerRepository.findAll();
     }
 }
-
