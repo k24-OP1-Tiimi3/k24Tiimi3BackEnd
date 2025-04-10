@@ -17,6 +17,7 @@ import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
 import jakarta.validation.Valid;
 
+
 @Controller
 public class KoirantuoteUIController {
 
@@ -63,4 +64,10 @@ public class KoirantuoteUIController {
         productRepository.deleteById(id); // poistaa tuotteen id:n perusteella
         return "redirect:/tuotteet"; // ohjaa takaisin tuotteet-sivulle
     }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+    
 }

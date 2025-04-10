@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.AppUser;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.AppUserRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Manufacturer;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
@@ -22,7 +24,7 @@ public class LemmikkikauppaprojektiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(ProductRepository productRepository, ManufacturerRepository manufacturerRepository) {
+	public CommandLineRunner demo(ProductRepository productRepository, ManufacturerRepository manufacturerRepository, AppUserRepository appUserRepository) {
 		return (args) -> {
 			// Luodaan valmistajia
 			Manufacturer dogWear = new Manufacturer();
@@ -59,6 +61,13 @@ public class LemmikkikauppaprojektiApplication {
 
 			log.info("Tallennetut tuotteet:");
 			productRepository.findAll().forEach(product -> log.info(product.toString()));
+			
+
+			AppUser test = new AppUser();
+			test.setPasswordHash("$2a$10$jLI6uLO7dLA.oY5ZoW.pX.TtX9pIvXBH6KQ.53jXc3T8LRYq/Raoy");
+			test.setRole("ROLE_ADMIN");
+			test.setUsername("admin");
+			appUserRepository.save(test);
 		};
 	}
 }
