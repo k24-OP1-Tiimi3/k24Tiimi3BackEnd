@@ -63,11 +63,11 @@ public class LemmikkikauppaprojektiApplication {
 			productRepository.findAll().forEach(product -> log.info(product.toString()));
 			
 
-			AppUser test = new AppUser();
-			test.setPasswordHash("$2a$10$jLI6uLO7dLA.oY5ZoW.pX.TtX9pIvXBH6KQ.53jXc3T8LRYq/Raoy");
-			test.setRole("ROLE_ADMIN");
-			test.setUsername("admin");
-			appUserRepository.save(test);
+			AppUser adminUser = new AppUser();
+			adminUser.setPasswordHash("$2a$10$jLI6uLO7dLA.oY5ZoW.pX.TtX9pIvXBH6KQ.53jXc3T8LRYq/Raoy");
+			adminUser.setRole("ROLE_ADMIN");
+			adminUser.setUsername("admin");
+			appUserRepository.save(adminUser);
 		};
 	}
 }
