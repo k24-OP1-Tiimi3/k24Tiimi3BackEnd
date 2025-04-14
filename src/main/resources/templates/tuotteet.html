@@ -23,6 +23,9 @@
         <input type="text" th:field="*{size}" placeholder="Koko" required />
         <input type="number" step="0.01" th:field="*{price}" placeholder="Hinta (€)" required />
         <button type="submit">Tallenna</button>
+        <form method="get" th:action="@{/tuotteet}" style="display: inline;">
+            <button type="submit">Cancel</button>
+        </form>
     </form>
 
     <ul>
@@ -38,6 +41,10 @@
             <a th:href="@{'/poista/' + ${tuote.id}}">Poista</a>
         </li>
     </ul>
+
+    <form method="get" th:action="@{/manufacturerlist}" style="display: inline;">
+        <button type="submit">Go to Manufacturer List</button>
+    </form>
 
 </body>
 

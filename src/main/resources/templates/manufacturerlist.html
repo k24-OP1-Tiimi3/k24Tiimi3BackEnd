@@ -22,16 +22,21 @@
                 <td th:text="${manufacturer.manufacturerid}"></td>
                 <td th:text="${manufacturer.name}"></td>
                 <td>
-                    <form method="get" th:action="@{'/deletemanufacturer/' + ${manufacturer.manufacturerid}}">
+                    <form method="get" th:action="@{'/deletemanufacturer/' + ${manufacturer.manufacturerid}}" style="display: inline;">
                         <button type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
         </tbody>
     </table>
-    <form method="get" th:action="@{/addmanufacturer}">
-        <button type="submit">Add manufacturer</button>
-    </form>
+    <div>
+        <form method="get" th:action="@{/addmanufacturer}" style="display: inline;">
+            <button type="submit">Add manufacturer</button>
+        </form>
+        <form method="get" th:action="@{/tuotteet}" style="display: inline;">
+            <button type="submit">Product list</button>
+        </form>
+    </div>
 </body>
 
 </html>

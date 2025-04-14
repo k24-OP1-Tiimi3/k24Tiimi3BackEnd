@@ -12,11 +12,15 @@
     <form method="post" th:action="@{/addmanufacturer}" th:object="${manufacturer}">
         <label for="name">Manufacturer:</label>
         <input type="text" id="name" th:field="*{name}" placeholder="Type manufacturers name" required />
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></div>
         <button type="submit">Add</button>
     </form>
     <br>
-    <form method="get" th:action="@{/manufacturerlist}">
+    <form method="get" th:action="@{/manufacturerlist}" style="display: inline;">
         <button type="submit">Back to manufacturers</button>
+    </form>
+    <form method="get" th:action="@{/manufacturerlist}" style="display: inline;">
+        <button type="submit">Cancel</button>
     </form>
 </body>
 

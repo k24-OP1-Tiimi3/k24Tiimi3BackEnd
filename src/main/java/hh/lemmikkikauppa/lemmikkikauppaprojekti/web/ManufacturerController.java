@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 @Controller
 public class ManufacturerController {
@@ -30,7 +32,11 @@ public class ManufacturerController {
     }
 
     @PostMapping("/addmanufacturer")
-    public String addManufacturer(@ModelAttribute Manufacturer manufacturer) {
+    public String addManufacturer(@Valid @ModelAttribute Manufacturer manufacturer, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("manufacturers", manufacturerRepository.findAll());
+            return "addmanufacturer";
+        }
         manufacturerRepository.save(manufacturer);
         return "redirect:/manufacturerlist";
     }
