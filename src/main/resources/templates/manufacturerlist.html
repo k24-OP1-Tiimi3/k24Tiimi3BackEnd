@@ -5,10 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manufacturer list</title>
+
 </head>
 
 <body>
     <h1>Manufacturers</h1>
+        <script>
+            function confirmDelete(formId, name) {
+                if (confirm("Are you sure you want to delete manufacturer: " + name + "?")) {
+                    document.getElementById(formId).submit();
+                }
+            }
+        </script>
+    <div th:if="${errorMessage}" style="color: red; margin-bottom: 10px;" th:text="${errorMessage}"></div>
+    <div th:if="${successMessage}" style="color: green; margin-bottom: 10px;" th:text="${successMessage}"></div>
+
     <table>
         <thead>
             <tr>
@@ -22,8 +33,14 @@
                 <td th:text="${manufacturer.manufacturerid}"></td>
                 <td th:text="${manufacturer.name}"></td>
                 <td>
-                    <form method="get" th:action="@{'/deletemanufacturer/' + ${manufacturer.manufacturerid}}" style="display: inline;">
-                        <button type="submit">Delete</button>
+                    <!-- Siistimpi tapa toteuttaa delete-toiminto -->
+                    <form th:id="'form_' + ${manufacturer.manufacturerid}" method="get"th:action="@{'/deletemanufacturer/' + ${manufacturer.manufacturerid}}" style="display: inline;">
+                        <button type="button" 
+                                th:data-id="${manufacturer.manufacturerid}"
+                                th:data-name="${manufacturer.name}"
+                                th:onclick="|confirmDelete('form_' + this.getAttribute('data-id'), this.getAttribute('data-name'))|">
+                            Delete
+                        </button>
                     </form>
                 </td>
             </tr>
