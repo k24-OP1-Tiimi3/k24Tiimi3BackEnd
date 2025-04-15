@@ -1,14 +1,15 @@
 package hh.lemmikkikauppa.lemmikkikauppaprojekti.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
-import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Manufacturer;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
 
 @RestController
 @RequestMapping("/api")
@@ -29,8 +30,8 @@ public class ProductRestController {
 
     // b) Get all products where type is "vaate"
     @GetMapping("/products/vaate")
-    public List<Product> getClothingProducts() {
-        return productRepository.findByType("vaate");
+    public Iterable<Product> getClothingProducts() {
+        return productRepository.findByType("Vaate");
     }
 
     // c) Get all manufacturers

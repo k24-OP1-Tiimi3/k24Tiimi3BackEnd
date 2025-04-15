@@ -42,7 +42,7 @@ public class LemmikkikauppaprojektiApplication {
 			Product winterCoat = new Product();
 			winterCoat.setName("Talvitakki");
 			winterCoat.setInventory(10);
-			winterCoat.setType("Takki");
+			winterCoat.setType("Vaate");
 			winterCoat.setColor("Punainen");
 			winterCoat.setSize("M");
 			winterCoat.setPrice(49.99);
@@ -52,12 +52,14 @@ public class LemmikkikauppaprojektiApplication {
 			Product rainCoat = new Product();
 			rainCoat.setName("Sadetakki");
 			rainCoat.setInventory(15);
-			rainCoat.setType("Takki");
+			rainCoat.setType("Vaate");
 			rainCoat.setColor("Sininen");
 			rainCoat.setSize("L");
 			rainCoat.setPrice(39.99);
 			rainCoat.setManufacturer(petStyle);
 			productRepository.save(rainCoat);
+
+
 
 			log.info("Tallennetut tuotteet:");
 			productRepository.findAll().forEach(product -> log.info(product.toString()));
