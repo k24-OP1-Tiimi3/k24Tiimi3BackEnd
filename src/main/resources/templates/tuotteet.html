@@ -7,6 +7,13 @@
 
 <body>
     <h1>Koiran tuotteet</h1>
+    <script>
+        function confirmDelete(formId, name) {
+            if (confirm("Are you sure you want to delete Product: " + name + "?")) {
+                document.getElementById(formId).submit();
+            }
+        }
+    </script>
 
     <!-- Lomake: lisää tai päivitä -->
     <form method="post" th:action="@{/paivita}" th:object="${valittutuote}">
@@ -38,7 +45,14 @@
             <span th:text="${tuote.size}"></span> -
             <span th:text="${tuote.price} + ' €'"></span>
             <a th:href="@{'/muokkaa/' + ${tuote.id}}">Muokkaa</a>
-            <a th:href="@{'/poista/' + ${tuote.id}}">Poista</a>
+
+            <form th:id="'delete_form_' + ${tuote.id}" method="get" th:action="@{'/poista/' + ${tuote.id}}"
+                style="display: inline;">
+                <button type="button" th:data-id="${tuote.id}" th:data-name="${tuote.name}"
+                    th:onclick="|confirmDelete('delete_form_' + this.getAttribute('data-id'), this.getAttribute('data-name'))|">
+                    Poista
+                </button>
+            </form>
         </li>
     </ul>
 
