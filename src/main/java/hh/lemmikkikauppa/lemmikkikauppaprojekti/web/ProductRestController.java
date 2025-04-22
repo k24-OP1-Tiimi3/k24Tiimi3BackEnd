@@ -29,10 +29,10 @@ public class ProductRestController {
     }
 
     // b) Get all products where type is "vaate"
-    @GetMapping("/products/vaate")
-    public Iterable<Product> getClothingProducts() {
-        return productRepository.findByType("Vaate");
-    }
+    // @GetMapping("/products/vaate")
+    // public Iterable<Product> getClothingProducts() {
+    //     return productRepository.
+    // }
 
     // c) Get all manufacturers
     @GetMapping("/manufacturers")

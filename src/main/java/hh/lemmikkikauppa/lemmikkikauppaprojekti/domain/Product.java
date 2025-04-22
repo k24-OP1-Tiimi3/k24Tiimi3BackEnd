@@ -4,10 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -23,14 +24,18 @@ public class Product {
     @Min(value = 0, message = "Inventory must be a positive number")
     private int inventory;
 
-    private String type;
     private String color;
     private String size;
-
+    
     @DecimalMin(value = "0.01", inclusive = false, message = "Price must be a positive number")
     private double price;
+    
+    @ManyToOne
+    @JoinColumn(name = "producttype_id", nullable = false)
+    private ProductType type;
 
     @ManyToOne
+    @JoinColumn(name = "manufacturer_id", nullable = false)
     private Manufacturer manufacturer;
 
     // Getterit ja setterit...
@@ -59,11 +64,11 @@ public class Product {
         this.inventory = inventory;
     }
 
-    public String getType() {
+    public ProductType getType() {
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(ProductType type) {
         this.type = type;
     }
 

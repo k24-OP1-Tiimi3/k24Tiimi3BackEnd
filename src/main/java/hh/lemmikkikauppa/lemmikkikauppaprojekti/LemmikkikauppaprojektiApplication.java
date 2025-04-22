@@ -13,6 +13,8 @@ import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Manufacturer;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductType;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductTypeRepository;
 
 @SpringBootApplication
 public class LemmikkikauppaprojektiApplication {
@@ -24,7 +26,7 @@ public class LemmikkikauppaprojektiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(ProductRepository productRepository, ManufacturerRepository manufacturerRepository, AppUserRepository appUserRepository) {
+	public CommandLineRunner demo(ProductRepository productRepository, ManufacturerRepository manufacturerRepository, AppUserRepository appUserRepository, ProductTypeRepository productTypeRepository) {
 		return (args) -> {
 			// Luodaan valmistajia
 			Manufacturer dogWear = new Manufacturer();
@@ -38,11 +40,22 @@ public class LemmikkikauppaprojektiApplication {
 			log.info("Tallennetut valmistajat:");
 			manufacturerRepository.findAll().forEach(manufacturer -> log.info(manufacturer.toString()));
 
+			//Create product types
+
+			ProductType clothingType = new ProductType();
+			clothingType.setName("clothing");
+			productTypeRepository.save(clothingType);
+
+			ProductType toyType = new ProductType();
+			toyType.setName("toy");
+			productTypeRepository.save(toyType);
+
+			// Create products 
 			
 			Product winterCoat = new Product();
 			winterCoat.setName("Talvitakki");
 			winterCoat.setInventory(10);
-			winterCoat.setType("Vaate");
+			winterCoat.setType(clothingType);
 			winterCoat.setColor("Punainen");
 			winterCoat.setSize("M");
 			winterCoat.setPrice(49.99);
@@ -52,7 +65,7 @@ public class LemmikkikauppaprojektiApplication {
 			Product rainCoat = new Product();
 			rainCoat.setName("Sadetakki");
 			rainCoat.setInventory(15);
-			rainCoat.setType("Vaate");
+			rainCoat.setType(clothingType);
 			rainCoat.setColor("Sininen");
 			rainCoat.setSize("L");
 			rainCoat.setPrice(39.99);

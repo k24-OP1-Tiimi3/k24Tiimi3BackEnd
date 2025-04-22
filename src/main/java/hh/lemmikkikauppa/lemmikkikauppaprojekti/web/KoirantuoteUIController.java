@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductTypeRepository;
 import jakarta.validation.Valid;
 
 
@@ -22,16 +23,22 @@ import jakarta.validation.Valid;
 public class KoirantuoteUIController {
 
     @Autowired
+    private ProductTypeRepository productTypeRepository;
+
+    @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private ManufacturerRepository manufacturerRepository;
+
+
     // Näytä tuotteet ja tyhjä lomake oletuksena
     @GetMapping("/tuotteet")
     public String naytaTuotteet(Model model) {
         model.addAttribute("tuotteet", productRepository.findAll());
         model.addAttribute("valittutuote", new Product()); // uusi tuote lomaketta varten
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        model.addAttribute("types", productTypeRepository.findAll()); // Add types to the model
         return "tuotteet";
     }
 
@@ -42,6 +49,7 @@ public class KoirantuoteUIController {
         model.addAttribute("valittutuote", tuote.orElse(new Product())); // jos ei löydy, annetaan tyhjä
         model.addAttribute("tuotteet", productRepository.findAll());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        model.addAttribute("types", productTypeRepository.findAll());
         return "tuotteet";
     }
 
@@ -51,6 +59,7 @@ public class KoirantuoteUIController {
     if (bindingResult.hasErrors()) {
         model.addAttribute("tuotteet", productRepository.findAll());
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        model.addAttribute("types", productTypeRepository.findAll());
         return "tuotteet";
     }
 
