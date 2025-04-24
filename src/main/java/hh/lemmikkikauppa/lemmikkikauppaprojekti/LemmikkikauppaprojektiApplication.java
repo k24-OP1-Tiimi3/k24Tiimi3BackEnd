@@ -26,7 +26,8 @@ public class LemmikkikauppaprojektiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(ProductRepository productRepository, ManufacturerRepository manufacturerRepository, AppUserRepository appUserRepository, ProductTypeRepository productTypeRepository) {
+	public CommandLineRunner demo(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
+			AppUserRepository appUserRepository, ProductTypeRepository productTypeRepository) {
 		return (args) -> {
 			// Luodaan valmistajia
 			Manufacturer dogWear = new Manufacturer();
@@ -40,18 +41,18 @@ public class LemmikkikauppaprojektiApplication {
 			log.info("Tallennetut valmistajat:");
 			manufacturerRepository.findAll().forEach(manufacturer -> log.info(manufacturer.toString()));
 
-			//Create product types
+			// Create product types
 
 			ProductType clothingType = new ProductType();
-			clothingType.setName("clothing");
+			clothingType.setName("Clothing");
 			productTypeRepository.save(clothingType);
 
 			ProductType toyType = new ProductType();
-			toyType.setName("toy");
+			toyType.setName("Toy");
 			productTypeRepository.save(toyType);
 
-			// Create products 
-			
+			// Create products
+
 			Product winterCoat = new Product();
 			winterCoat.setName("Talvitakki");
 			winterCoat.setInventory(10);
@@ -72,11 +73,19 @@ public class LemmikkikauppaprojektiApplication {
 			rainCoat.setManufacturer(petStyle);
 			productRepository.save(rainCoat);
 
-
+			// Lisätään uusi toy-tyyppinen tuote
+			Product squeakyToy = new Product();
+			squeakyToy.setName("Squeaky Ball");
+			squeakyToy.setInventory(25);
+			squeakyToy.setType(toyType);
+			squeakyToy.setColor("Yellow");
+			squeakyToy.setSize("S");
+			squeakyToy.setPrice(12.99);
+			squeakyToy.setManufacturer(petStyle);
+			productRepository.save(squeakyToy);
 
 			log.info("Tallennetut tuotteet:");
 			productRepository.findAll().forEach(product -> log.info(product.toString()));
-			
 
 			AppUser adminUser = new AppUser();
 			adminUser.setPasswordHash("$2a$10$jLI6uLO7dLA.oY5ZoW.pX.TtX9pIvXBH6KQ.53jXc3T8LRYq/Raoy");
