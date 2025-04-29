@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Manufacturer;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
@@ -34,13 +37,27 @@ public class KoirantuoteUIController {
 
     // Näytä tuotteet ja tyhjä lomake oletuksena
     @GetMapping("/tuotteet")
-    public String naytaTuotteet(Model model) {
-        model.addAttribute("tuotteet", productRepository.findAll());
-        model.addAttribute("valittutuote", new Product()); // uusi tuote lomaketta varten
-        model.addAttribute("manufacturers", manufacturerRepository.findAll());
-        model.addAttribute("types", productTypeRepository.findAll()); // Add types to the model
-        return "tuotteet";
+    public String naytaTuotteet(
+        @RequestParam(name = "manufacturerId", required = false) Long manufacturerId,
+        Model model) {
+
+    List<Product> tuotteet;
+    if (manufacturerId != null) {
+        Manufacturer manufacturer = manufacturerRepository.findById(manufacturerId).orElse(null);
+        tuotteet = productRepository.findByManufacturer(manufacturer);
+        model.addAttribute("selectedManufacturerId", manufacturerId);
+    } else {
+        tuotteet = (List<Product>) productRepository.findAll();
     }
+
+    model.addAttribute("tuotteet", tuotteet);
+    model.addAttribute("valittutuote", new Product());
+    model.addAttribute("manufacturers", manufacturerRepository.findAll());
+    model.addAttribute("types", productTypeRepository.findAll());
+
+    return "tuotteet";
+    }
+
 
     // Lomake "muokkaa"-linkistä: täyttää lomakkeen valitulla tuotteella
     @GetMapping("/muokkaa/{id}")
