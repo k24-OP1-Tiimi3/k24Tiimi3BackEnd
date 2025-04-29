@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manufacturer list</title>
-
+    <title>Manufacturer List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>Manufacturers</h1>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Manufacturers</h1>
         <script>
             function confirmDelete(formId, name) {
                 if (confirm("Are you sure you want to delete manufacturer: " + name + "?")) {
@@ -17,43 +18,54 @@
                 }
             }
         </script>
-    <div th:if="${errorMessage}" style="color: red; margin-bottom: 10px;" th:text="${errorMessage}"></div>
-    <div th:if="${successMessage}" style="color: green; margin-bottom: 10px;" th:text="${successMessage}"></div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="manufacturer : ${manufactures}">
-                <td th:text="${manufacturer.manufacturerid}"></td>
-                <td th:text="${manufacturer.name}"></td>
-                <td>
-                    <!-- Siistimpi tapa toteuttaa delete-toiminto -->
-                    <form th:id="'form_' + ${manufacturer.manufacturerid}" method="get"th:action="@{'/deletemanufacturer/' + ${manufacturer.manufacturerid}}" style="display: inline;">
-                        <button type="button" 
-                                th:data-id="${manufacturer.manufacturerid}"
-                                th:data-name="${manufacturer.name}"
-                                th:onclick="|confirmDelete('form_' + this.getAttribute('data-id'), this.getAttribute('data-name'))|">
-                            Delete
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div>
-        <form method="get" th:action="@{/addmanufacturer}" style="display: inline;">
-            <button type="submit">Add manufacturer</button>
-        </form>
-        <form method="get" th:action="@{/tuotteet}" style="display: inline;">
-            <button type="submit">Product list</button>
-        </form>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Manufacturer List</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="manufacturer : ${manufactures}">
+                            <td th:text="${manufacturer.manufacturerid}"></td>
+                            <td th:text="${manufacturer.name}"></td>
+                            <td>
+                                <form th:id="'form_' + ${manufacturer.manufacturerid}" method="get"
+                                    th:action="@{'/deletemanufacturer/' + ${manufacturer.manufacturerid}}" style="display: inline;">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        th:data-id="${manufacturer.manufacturerid}" th:data-name="${manufacturer.name}"
+                                        th:onclick="|confirmDelete('form_' + this.getAttribute('data-id'), this.getAttribute('data-name'))|">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4 text-center">
+            <form method="get" th:action="@{/addmanufacturer}" style="display: inline;">
+                <button type="submit" class="btn btn-primary">Add Manufacturer</button>
+            </form>
+            <form method="get" th:action="@{/tuotteet}" style="display: inline;">
+                <button type="submit" class="btn btn-info">Go to Product List</button>
+            </form>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

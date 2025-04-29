@@ -43,11 +43,11 @@ public class LemmikkikauppaprojektiApplication {
 			//Create product types
 
 			ProductType clothingType = new ProductType();
-			clothingType.setName("clothing");
+			clothingType.setName(ProductType.TypeName.Vaate);
 			productTypeRepository.save(clothingType);
 
 			ProductType toyType = new ProductType();
-			toyType.setName("toy");
+			toyType.setName(ProductType.TypeName.Lelu);
 			productTypeRepository.save(toyType);
 
 			// Create products 
@@ -57,7 +57,7 @@ public class LemmikkikauppaprojektiApplication {
 			winterCoat.setInventory(10);
 			winterCoat.setType(clothingType);
 			winterCoat.setColor("Punainen");
-			winterCoat.setSize("M");
+			winterCoat.setSize(Product.Size.M);
 			winterCoat.setPrice(49.99);
 			winterCoat.setManufacturer(dogWear);
 			productRepository.save(winterCoat);
@@ -67,11 +67,20 @@ public class LemmikkikauppaprojektiApplication {
 			rainCoat.setInventory(15);
 			rainCoat.setType(clothingType);
 			rainCoat.setColor("Sininen");
-			rainCoat.setSize("L");
+			rainCoat.setSize(Product.Size.L);
 			rainCoat.setPrice(39.99);
 			rainCoat.setManufacturer(petStyle);
 			productRepository.save(rainCoat);
 
+			Product chewingToy = new Product();
+			chewingToy.setName("Puru Lelu");
+			chewingToy.setInventory(15);
+			chewingToy.setType(toyType);
+			chewingToy.setColor("Sininen");
+			chewingToy.setSize(null);
+			chewingToy.setPrice(9.99);
+			chewingToy.setManufacturer(petStyle);
+			productRepository.save(chewingToy);
 
 
 			log.info("Tallennetut tuotteet:");

@@ -34,7 +34,10 @@ public class WebSecurityConfig {
             )
             .logout( login -> login
                 .permitAll()
-            );
+            )
+            .csrf(csrf -> csrf.disable()) // Disable CSRF for H2 console
+            .headers(headers -> headers.frameOptions().disable()); // Allow H2 console to be displayed in a frame
+    
 
         return http.build();
     }

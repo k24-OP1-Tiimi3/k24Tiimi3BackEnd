@@ -2,6 +2,8 @@ package hh.lemmikkikauppa.lemmikkikauppaprojekti.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,27 +18,33 @@ public class Manufacturer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long manufacturerid;
+    private Long id;
 
     @NotBlank(message = "Name is required")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     private String name;
 
+
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Product> products;
 
+
+
     public Manufacturer() {
-        this.manufacturerid = null;
+        this.id = null;
         this.name = null;
         this.products = null;
     }
 
+    // Getters and setters
+
     public Long getManufacturerid() {
-        return manufacturerid;
+        return id;
     }
 
-    public void setManufacturerid(Long manufacturerid) {
-        this.manufacturerid = manufacturerid;
+    public void setManufacturerid(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,7 +65,7 @@ public class Manufacturer {
 
     @Override
     public String toString() {
-        return "Manufacturer [manufacturerid=" + manufacturerid + ", name=" + name + "]";
+        return "Manufacturer [id=" + id + ", name=" + name + "]";
     }
 
     

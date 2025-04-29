@@ -1,6 +1,8 @@
 package hh.lemmikkikauppa.lemmikkikauppaprojekti.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +27,9 @@ public class Product {
     private int inventory;
 
     private String color;
-    private String size;
+
+    @Enumerated(EnumType.STRING)
+    private Size size;
     
     @DecimalMin(value = "0.01", inclusive = false, message = "Price must be a positive number")
     private double price;
@@ -33,10 +37,22 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "producttype_id", nullable = false)
     private ProductType type;
-
+    
     @ManyToOne
     @JoinColumn(name = "manufacturer_id", nullable = false)
     private Manufacturer manufacturer;
+    
+    //Possible sizes
+    public enum Size {
+        S, M, L,
+    }
+
+
+    public void validateSizeForType() {
+        if (type != null && type.getName() != ProductType.TypeName.Vaate && size != null) {
+            throw new IllegalArgumentException("Size can only be set for products type of 'Vaate'");
+        }
+    }
 
     // Getterit ja setterit...
 
@@ -70,6 +86,7 @@ public class Product {
 
     public void setType(ProductType type) {
         this.type = type;
+        validateSizeForType();
     }
 
     public String getColor() {
@@ -80,11 +97,11 @@ public class Product {
         this.color = color;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return this.size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
@@ -109,5 +126,6 @@ public class Product {
         return "Product [id=" + id + ", name=" + name + ", inventory=" + inventory + ", type=" + type + ", color="
                 + color + ", size=" + size + ", price=" + price + ", manufacturer=" + manufacturer + "]";
     }
+
 
 }
