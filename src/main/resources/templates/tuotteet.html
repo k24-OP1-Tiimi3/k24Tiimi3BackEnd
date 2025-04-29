@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+<<<<<<< HEAD
     <title>Koiran tuotteet</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,9 +16,21 @@
                 if (confirm("Are you sure you want to delete Product: " + name + "?")) {
                     document.getElementById(formId).submit();
                 }
+=======
+    <title>Dog Products</title>
+</head>
+
+<body>
+    <h1>Dog Products</h1>
+    <script>
+        function confirmDelete(formId, name) {
+            if (confirm("Are you sure you want to delete Product: " + name + "?")) {
+                document.getElementById(formId).submit();
+>>>>>>> 17e05d04e51de3cffb25def7c6b82d61e02c5e35
             }
         </script>
 
+<<<<<<< HEAD
         <!-- Form: Add or Update Product -->
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
@@ -120,6 +133,51 @@
         <div class="mt-4 text-left">
             <form method="get" th:action="@{/manufacturerlist}" style="display: inline;">
                 <button type="submit" class="btn btn-info">Siirry valmistajalistaan</button>
+=======
+    <!-- Form: add or update -->
+    <form method="post" th:action="@{/paivita}" th:object="${valittutuote}">
+        <input type="hidden" th:field="*{id}" />
+        <input type="text" th:field="*{name}" placeholder="Name" required />
+        <select th:field="*{manufacturer}">
+            <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.manufacturerid}"
+                th:text="${manufacturer.name}">
+            </option>
+        </select>
+        <input type="number" th:field="*{inventory}" placeholder="Quantity" required />
+        <select th:field="*{type}">
+            <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}">
+            </option>
+        </select>
+        <input type="text" th:field="*{color}" placeholder="Color" required />
+        <input type="text" th:field="*{size}" placeholder="Size" required />
+        <input type="number" step="0.01" th:field="*{price}" placeholder="Price (€)" required />
+        <button type="submit">Save</button>
+        <form method="get" th:action="@{/tuotteet}" style="display: inline;">
+            <button type="submit">Cancel</button>
+        </form>
+    </form>
+
+    <ul>
+        <li th:each="tuote : ${tuotteet}">
+            <span th:text="${tuote.name}"></span> -
+            <span th:text="${tuote.manufacturer.name}"></span> -
+            <span th:text="${tuote.inventory}"></span> -
+            <span th:text="${tuote.type.name}"></span> -
+            <span th:text="${tuote.color}"></span> -
+            <span th:text="${tuote.size}"></span> -
+            <span th:text="${tuote.price} + ' €'"></span>
+
+            <form method="get" th:action="@{'/muokkaa/' + ${tuote.id}}" style="display: inline;">
+                <button type="submit">Edit</button>
+            </form>
+
+            <form th:id="'delete_form_' + ${tuote.id}" method="get" th:action="@{'/poista/' + ${tuote.id}}"
+                style="display: inline;">
+                <button type="button" th:data-id="${tuote.id}" th:data-name="${tuote.name}"
+                    th:onclick="|confirmDelete('delete_form_' + this.getAttribute('data-id'), this.getAttribute('data-name'))|">
+                    Delete
+                </button>
+>>>>>>> 17e05d04e51de3cffb25def7c6b82d61e02c5e35
             </form>
         </div>
     </div>
