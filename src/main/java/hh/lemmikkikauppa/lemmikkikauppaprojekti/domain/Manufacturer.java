@@ -24,11 +24,6 @@ public class Manufacturer {
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     private String name;
 
-<<<<<<< HEAD
-
-=======
-    @JsonIgnore
->>>>>>> 17e05d04e51de3cffb25def7c6b82d61e02c5e35
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Product> products;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
@@ -24,18 +23,10 @@ public class ProductType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-<<<<<<< HEAD
     @Enumerated(EnumType.STRING)
     private TypeName name;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
-=======
-    @NotBlank(message = "Name is required")
-    private String name;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
->>>>>>> 17e05d04e51de3cffb25def7c6b82d61e02c5e35
     private List<Product> products = new ArrayList<>();
 
     // Getters and setters
@@ -67,7 +58,6 @@ public class ProductType {
                 ", name='" + getName() + "'" +
                 "}";
     }
-<<<<<<< HEAD
 
     // Possible type names
 
@@ -75,7 +65,5 @@ public class ProductType {
         Vaate, Lelu, Ruoka
     }
     
-=======
->>>>>>> 17e05d04e51de3cffb25def7c6b82d61e02c5e35
 
 }
