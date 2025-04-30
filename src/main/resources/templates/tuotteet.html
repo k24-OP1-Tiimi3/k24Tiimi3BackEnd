@@ -71,6 +71,25 @@
             </div>
         </div>
 
+        <div style="margin-bottom: 20px; padding: 10px; background-color: #f5f5f5; border-radius: 5px;">
+            <form th:action="@{/tuotteet}" method="get">
+                <label for="manufacturerFilter">Valmistaja:</label>
+                <select name="manufacturerId" id="manufacturerFilter">
+                    <option value="">Kaikki valmistajat</option>
+                    <option th:each="manufacturerOption : ${manufacturers}"
+                            th:value="${manufacturerOption.manufacturerid}"
+                            th:text="${manufacturerOption.name}"
+                            th:selected="${selectedManufacturerId != null && selectedManufacturerId == manufacturerOption.manufacturerid}">
+                    </option>
+                </select>
+        
+                <button type="submit" style="margin-left: 10px;">Suodata</button>
+                <a th:href="@{/tuotteet}" style="margin-left: 10px;">
+                    <button type="button">Tyhjennä suodatus</button>
+                </a>
+            </form>
+        </div>        
+
         <!-- Product List -->
         <div class="card">
             <div class="card-header bg-secondary text-white">
