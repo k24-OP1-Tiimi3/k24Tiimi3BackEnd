@@ -1,5 +1,7 @@
 package hh.lemmikkikauppa.lemmikkikauppaprojekti;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +17,8 @@ import hh.lemmikkikauppa.lemmikkikauppaprojekti.service.UserDetailServiceImpl;
 
 @Configuration
 public class WebSecurityConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
 
     private final UserDetailServiceImpl userDetailService;
 
@@ -39,6 +43,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for H2 console
                 .headers(headers -> headers.frameOptions().disable()); // Allow H2 console to be displayed in a frame
 
+        logger.info("Security filter chain configured successfully");
         return http.build();
     }
 
@@ -58,6 +63,7 @@ public class WebSecurityConfig {
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+        logger.info("CORS configuration created with allowed origins:", configuration.getAllowedOrigins());
         return source;
     }
 }

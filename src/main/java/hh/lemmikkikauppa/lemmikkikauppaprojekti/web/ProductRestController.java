@@ -1,14 +1,26 @@
 package hh.lemmikkikauppa.lemmikkikauppaprojekti.web;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Customer;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.CustomerRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Manufacturer;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
@@ -16,11 +28,12 @@ import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductType;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductTypeRepository;
 
-
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173")
 public class ProductRestController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductRestController.class);
 
     @Autowired
     private ProductRepository productRepository;
@@ -30,6 +43,12 @@ public class ProductRestController {
 
     @Autowired
     private ProductTypeRepository productTypeRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/products")
     public Iterable<Product> getAllProducts() {
@@ -60,4 +79,16 @@ public class ProductRestController {
     public Iterable<ProductType> getAllProductTypes() {
         return productTypeRepository.findAll();
     }
+
+    @GetMapping("/customers")
+    public Iterable<Customer> getAllCustomers() {
+        return customerRepository.findAll();
+    }
+
+    @GetMapping("/customers/{id}")
+    public Optional<Customer> getCustomerById(@PathVariable Long id) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        return customerRepository.findById(id);
+    }
+
 }
