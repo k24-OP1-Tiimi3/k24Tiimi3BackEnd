@@ -1,21 +1,13 @@
 package hh.lemmikkikauppa.lemmikkikauppaprojekti.web;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,8 +39,7 @@ public class ProductRestController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/products")
     public Iterable<Product> getAllProducts() {
@@ -87,7 +78,6 @@ public class ProductRestController {
 
     @GetMapping("/customers/{id}")
     public Optional<Customer> getCustomerById(@PathVariable Long id) {
-        Optional<Customer> customer = customerRepository.findById(id);
         return customerRepository.findById(id);
     }
 

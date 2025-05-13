@@ -1,5 +1,8 @@
 package hh.lemmikkikauppa.lemmikkikauppaprojekti;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -9,8 +12,12 @@ import org.springframework.context.annotation.Bean;
 
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.AppUser;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.AppUserRepository;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Customer;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.CustomerRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Manufacturer;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ManufacturerRepository;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Order;
+import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.OrderRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Product;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductType;
@@ -26,8 +33,12 @@ public class LemmikkikauppaprojektiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(ProductRepository productRepository, ManufacturerRepository manufacturerRepository,
-			AppUserRepository appUserRepository, ProductTypeRepository productTypeRepository) {
+	public CommandLineRunner demo(ProductRepository productRepository,
+								ManufacturerRepository manufacturerRepository,
+								AppUserRepository appUserRepository,
+								ProductTypeRepository productTypeRepository,
+								CustomerRepository customerRepository,
+								OrderRepository orderRepository) {
 		return (args) -> {
 			// Luodaan valmistajia
 			Manufacturer dogWear = new Manufacturer();
@@ -87,6 +98,25 @@ public class LemmikkikauppaprojektiApplication {
 			log.info("Tallennetut tuotteet:");
 			productRepository.findAll().forEach(product -> log.info(product.toString()));
 
+			// Add Customer
+			Customer customer = new Customer();
+			customer.setFirstName("Testi");
+			customer.setLastName("Asiakas");
+			customer.setEmail("test@test.com");
+			customer.setPasswordHash("$2a$10$HfarHi0bI1CSlY2VECKnVOByy945WJxwZAzx43iyp2ySibFYbhVLu");
+			customerRepository.save(customer);
+
+			// Add Order for the customer
+			Order order = new Order();
+			order.setCustomer(customer);
+			List<Product> products = new ArrayList<>();
+			productRepository.findAll().forEach(products::add);
+			order.setProducts(products);
+			order.setState("in progress");
+			orderRepository.save(order);
+
+
+			// Test admin
 			AppUser adminUser = new AppUser();
 			adminUser.setPasswordHash("$2a$10$jLI6uLO7dLA.oY5ZoW.pX.TtX9pIvXBH6KQ.53jXc3T8LRYq/Raoy");
 			adminUser.setRole("ROLE_ADMIN");

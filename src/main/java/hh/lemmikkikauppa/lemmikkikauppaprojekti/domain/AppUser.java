@@ -24,6 +24,8 @@ public class AppUser {
     private String role;
 
 
+    // Getters and setters
+
 
     public Long getId() {
         return this.id;

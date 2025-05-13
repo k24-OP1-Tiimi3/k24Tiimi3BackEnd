@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.Customer;
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.CustomerRepository;
-import hh.lemmikkikauppa.lemmikkikauppaprojekti.domain.ProductRepository;
 
 @RestController
 @RequestMapping("/api")

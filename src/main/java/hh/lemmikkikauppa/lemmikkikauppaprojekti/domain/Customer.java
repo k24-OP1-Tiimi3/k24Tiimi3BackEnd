@@ -1,10 +1,14 @@
 package hh.lemmikkikauppa.lemmikkikauppaprojekti.domain;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Customer {
@@ -26,6 +30,8 @@ public class Customer {
     @Column(nullable=false)
     private String passwordHash;
 
+    @OneToMany(mappedBy="customer", cascade=CascadeType.ALL)
+    private List<Order> orders;
 
     // Getters and setters
 

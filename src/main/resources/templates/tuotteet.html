@@ -18,6 +18,21 @@
             }
         </script>
 
+                <!-- Link to Manufacturer List -->
+        <div class="mt-4 text-left">
+            <form method="get" th:action="@{/manufacturerlist}" style="display: inline;">
+                <button type="submit" class="btn btn-info">Siirry valmistajalistaan</button>
+            </form>
+            <!-- Orders list button -->
+            <form method="get" th:action="@{/orders}" style="display: inline; margin-left: 10px;">
+                <button type="submit" class="btn btn-warning">Siirry tilausten listaan</button>
+            </form>
+            <!-- Customers list button -->
+            <form method="get" th:action="@{/customers}" style="display: inline; margin-left: 10px;">
+                <button type="submit" class="btn btn-secondary">Siirry asiakaslistaan</button>
+            </form>
+        </div>
+
         <!-- Form: Add or Update Product -->
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
@@ -55,7 +70,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="size" class="form-label">Koko</label>
-                        <input type="text" th:field="*{size}" class="form-control" id="size" placeholder="Koko"/>
+                        <input type="text" th:field="*{size}" class="form-control" id="size" placeholder="S, M, L"/>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Hinta (€)</label>
@@ -133,13 +148,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-
-        <!-- Link to Manufacturer List -->
-        <div class="mt-4 text-left">
-            <form method="get" th:action="@{/manufacturerlist}" style="display: inline;">
-                <button type="submit" class="btn btn-info">Siirry valmistajalistaan</button>
-            </form>
         </div>
     </div>
 
