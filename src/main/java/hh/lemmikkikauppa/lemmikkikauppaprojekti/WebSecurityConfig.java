@@ -12,6 +12,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
+import jakarta.servlet.http.HttpServletResponse;
 
 import hh.lemmikkikauppa.lemmikkikauppaprojekti.service.UserDetailServiceImpl;
 
@@ -40,8 +41,18 @@ public class WebSecurityConfig {
                         .permitAll())
                 .logout(login -> login
                         .permitAll())
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for H2 console
-                .headers(headers -> headers.frameOptions().disable()); // Allow H2 console to be displayed in a frame
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            if (request.getRequestURI().startsWith("/api/")) {
+                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                response.setContentType("application/json");
+                                response.getWriter().write("{\"error\":\"Unauthorized\"}");
+                            } else {
+                                response.sendRedirect("/login");
+                            }
+                        }))
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions().disable());
 
         logger.info("Security filter chain configured successfully");
         return http.build();
